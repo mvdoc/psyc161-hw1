@@ -4,7 +4,7 @@ Note:  this is just a skeleton for you to work with.  But it already
        has some "bugs" you need to catch and fix.
 """
 
-from nose.tools import assert_equal
+from nose.tools import assert_equal, assert_raises
 import time
 
 
@@ -33,12 +33,12 @@ def factorial_recursive(n):
         raise ValueError('n must be greater or equal than 0')
     return 1 if n <= 1 else n * factorial_recursive(n-1)
 
+
 def check_factorial(factorial, x, y):
     assert_equal(factorial(x), y)
 
+
 def test_factorial():
-    "" # I should file a report/check why it doesn't report arguments
-       # if docstring is present
     """
     Test that both implementations of factorial work.
     """
@@ -49,6 +49,7 @@ def test_factorial():
     for factorial in implementations:
         for x, y in results:
             yield check_factorial, factorial, x, y
+        assert_raises(ValueError, factorial, -1)
 
 
 def timethis(fn, *args):
